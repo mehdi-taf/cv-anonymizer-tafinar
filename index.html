@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Anonymizer - TAFINAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Application */
+        .app-header {
+            background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
+            padding: 25px 0;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 65, 153, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .app-logo {
+            height: 60px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .header-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-text p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 65, 153, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #004199;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 5px;
+            height: 24px;
+            background: linear-gradient(180deg, #004199 0%, #00bf63 100%);
+            border-radius: 3px;
+        }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 3px dashed #004199;
+            border-radius: 15px;
+            padding: 50px 30px;
+            text-align: center;
+            background: rgba(0, 65, 153, 0.03);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: #00bf63;
+            background: rgba(0, 191, 99, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 191, 99, 0.2);
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: #004199;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .upload-zone:hover .upload-icon {
+            color: #00bf63;
+        }
+
+        .upload-text {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .upload-formats {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Text Input */
+        .cv-text-input {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            border: 2px solid #e8ecf4;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .cv-text-input:focus {
+            outline: none;
+            border-color: #004199;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 65, 153, 0.1);
+        }
+
+        /* Form Fields */
+        .form-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        .form-input {
+            padding: 15px;
+            border: 2px solid #e8ecf4;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #004199;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 65, 153, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 65, 153, 0.4);
+            width: 100%;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 65, 153, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00bf63 0%, #00d66c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 191, 99, 0.4);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 191, 99, 0.5);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Section */
+        .cv-preview {
+            display: none;
+            border: 2px solid #e8ecf4;
+            border-radius: 12px;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cv-preview.show {
+            display: block;
+        }
+
+        /* CV Styles */
+        .cv-container {
+            max-width: 100%;
+            background: white;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .cv-header {
+            background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .cv-logo-container {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cv-logo-container img {
+            height: 45px;
+            width: auto;
+        }
+
+        .cv-profile-info {
+            text-align: center;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .cv-job-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .cv-profile-code {
+            font-size: 13px;
+            font-weight: 700;
+            color: #00ff7f;
+            background: rgba(0, 255, 127, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+
+        .cv-content {
+            padding: 30px 35px;
+            background: white;
+        }
+
+        .cv-section {
+            margin-bottom: 30px;
+        }
+
+        .cv-section-title {
+            background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
+            color: white;
+            padding: 12px 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0, 65, 153, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .cv-experience {
+            margin-bottom: 20px;
+            padding: 18px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #004199;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .cv-company-role {
+            color: #004199;
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .cv-duration-location {
+            color: #00bf63;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            background: rgba(0, 191, 99, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid rgba(0, 191, 99, 0.2);
+        }
+
+        .cv-description {
+            color: #555;
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .cv-tasks {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        .cv-tasks li {
+            margin-bottom: 4px;
+            font-size: 10px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .cv-formation-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #00bf63;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .cv-formation-title {
+            font-weight: 700;
+            color: #333;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .cv-formation-details {
+            color: #00bf63;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .cv-competence-category {
+            margin-bottom: 18px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-top: 4px solid #004199;
+        }
+
+        .cv-competence-title {
+            font-weight: 700;
+            color: #004199;
+            margin-bottom: 12px;
+            font-size: 11px;
+        }
+
+        .cv-competence-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cv-competence-item {
+            background: white;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 9px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .cv-simple-list {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        .cv-simple-list li {
+            margin-bottom: 6px;
+            font-size: 10px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Messages */
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            font-weight: 500;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Actions */
+        .actions {
+            display: none;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .actions.show {
+            display: flex;
+        }
+
+        /* Internal Info */
+        .internal-info {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            display: none;
+        }
+
+        .internal-info.show {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #004199;
+            font-size: 13px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #004199;
+        }
+
+        .info-value {
+            color: #333;
+            font-style: italic;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #004199;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                max-width: 900px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .main-container {
+                padding: 20px 15px;
+                gap: 25px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .cv-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .cv-profile-info {
+                margin-left: 0;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="app-header">
+        <div class="header-content">
+            <div class="app-logo">
+                <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=400x10000:format=png/path/sff9eaf88e82d8f8a/image/ifdd007cf2d2293e3/version/1616433262/image.png" alt="TAFINAR">
+            </div>
+            <div class="header-text">
+                <h1>CV Anonymizer</h1>
+                <p>Transformez vos CV en version anonyme professionnelle</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Input Section -->
+        <div class="section">
+            <div class="section-title">CV à traiter</div>
+            
+            <!-- Upload Zone -->
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Glissez-déposez votre CV ici ou cliquez pour sélectionner</div>
+                <div class="upload-formats">Formats supportés : PDF, DOC, DOCX (jusqu'à 20 pages)</div>
+                <input type="file" id="fileInput" class="file-input" accept=".pdf,.doc,.docx">
+            </div>
+
+            <div style="text-align: center; margin: 20px 0; color: #666; font-weight: 600; font-size: 16px;">OU</div>
+
+            <!-- Text Input -->
+            <textarea 
+                id="cvTextInput" 
+                class="cv-text-input" 
+                placeholder="Collez ici le texte complet du CV (même très long)...
+
+Exemple :
+DUPONT Jean
+123 rue de la République  
+75001 Paris
+jean.dupont@email.com
+06 12 34 56 78
+
+EXPÉRIENCE PROFESSIONNELLE
+Développeur Senior - TechCorp
+Janvier 2020 - Présent | Paris
+• Développement d'applications web
+• Gestion d'équipe de 5 personnes
+
+FORMATION
+Master Informatique - Université Paris
+2018-2020
+
+COMPÉTENCES
+JavaScript, Python, React, Node.js
+
+LANGUES
+Français (natif), Anglais (courant)
+
+Etc..."></textarea>
+
+            <!-- Form Fields -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label required">Poste recherché</label>
+                    <input type="text" id="jobTitle" class="form-input" placeholder="Ex: Développeur Full-Stack" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Code profil (optionnel)</label>
+                    <input type="text" id="profileCode" class="form-input" placeholder="Ex: ABC (généré automatiquement si vide)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Disponibilité</label>
+                    <input type="text" id="availability" class="form-input" placeholder="Ex: Immédiate, 1 mois...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mobilité</label>
+                    <input type="text" id="mobility" class="form-input" placeholder="Ex: France entière, Île-de-France...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Prétention salariale</label>
+                    <input type="text" id="salary" class="form-input" placeholder="Ex: 45-55k€, À négocier...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Remarque</label>
+                    <textarea id="remark" class="form-input form-textarea" placeholder="Remarques générales..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Remarque pour Soufyane</label>
+                    <textarea id="soufyaneRemark" class="form-input form-textarea" placeholder="Notes spécifiques..."></textarea>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button type="button" id="generateBtn" class="btn btn-primary">
+                <span>Analyser et générer le CV anonyme</span>
+            </button>
+
+            <!-- Messages -->
+            <div id="successMessage" class="message message-success">
+                CV anonyme généré avec succès !
+            </div>
+            <div id="errorMessage" class="message message-error">
+                Erreur lors de la génération. Vérifiez les données.
+            </div>
+            <div id="apiKeyMessage" class="message message-info">
+                Veuillez configurer votre clé API pour utiliser l'outil.
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="section">
+            <div class="section-title">Aperçu du CV anonyme</div>
+            
+            <div id="cvPreview" class="cv-preview">
+                <div class="cv-container">
+                    <div class="cv-header">
+                        <div class="cv-logo-container">
+                            <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=400x10000:format=png/path/sff9eaf88e82d8f8a/image/ifdd007cf2d2293e3/version/1616433262/image.png" alt="TAFINAR">
+                        </div>
+                        <div class="cv-profile-info">
+                            <div class="cv-job-title" id="previewJobTitle">Poste à définir</div>
+                            <div class="cv-profile-code" id="previewProfileCode">PROFIL XXX</div>
+                        </div>
+                    </div>
+                    <div class="cv-content" id="previewContent">
+                        <div style="text-align: center; color: #666; padding: 50px 20px;">
+                            <p style="font-size: 16px; margin-bottom: 10px;">L'aperçu du CV anonyme apparaîtra ici après traitement</p>
+                            <p style="font-size: 14px;">Fournissez un CV et cliquez sur "Analyser"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div id="previewActions" class="actions">
+                <button type="button" id="downloadBtn" class="btn btn-success">
+                    Télécharger PDF
+                </button>
+                <button type="button" id="printBtn" class="btn btn-primary">
+                    Imprimer
+                </button>
+                <button type="button" id="newCvBtn" class="btn btn-secondary">
+                    Nouveau CV
+                </button>
+            </div>
+
+            <!-- Internal Info -->
+            <div id="internalInfo" class="internal-info">
+                <div class="section-title">Informations internes (non affichées sur le CV)</div>
+                <div id="infoGrid" class="info-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Analyse en cours...</div>
+            <div class="loading-subtext">L'IA traite votre CV et extrait les données</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configuration IA optimisée pour gros CV
+        const AI_CONFIG = {
+            apiUrl: 'https://openrouter.ai/api/v1/chat/completions',
+            apiKey: '', // À configurer avec votre clé
+            model: 'anthropic/claude-3.5-sonnet' // Modèle le plus puissant pour CV longs
+        };
+
+        // Elements DOM
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const cvTextInput = document.getElementById('cvTextInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const cvPreview = document.getElementById('cvPreview');
+        const previewActions = document.getElementById('previewActions');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const apiKeyMessage = document.getElementById('apiKeyMessage');
+        const internalInfo = document.getElementById('internalInfo');
+
+        // Event Listeners
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', handleDragOver);
+        uploadZone.addEventListener('dragleave', handleDragLeave);
+        uploadZone.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
+        generateBtn.addEventListener('click', generateAnonymousCV);
+        document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+        document.getElementById('printBtn').addEventListener('click', printCV);
+        document.getElementById('newCvBtn').addEventListener('click', resetForm);
+
+        // Drag & Drop handlers
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        // File processing avec support PDF complet
+        async function processFile(file) {
+            try {
+                showLoading('Extraction du texte du fichier...');
+                
+                let text = '';
+                if (file.type === 'application/pdf') {
+                    text = await extractTextFromPDF(file);
+                } else if (file.type.includes('word') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+                    text = await extractTextFromWord(file);
+                } else {
+                    throw new Error('Format de fichier non supporté. Utilisez PDF, DOC ou DOCX.');
+                }
+
+                cvTextInput.value = text;
+                uploadZone.querySelector('.upload-text').textContent = `Fichier chargé : ${file.name}`;
+                hideLoading();
+                showMessage('success', 'Fichier traité avec succès ! Vous pouvez maintenant générer le CV anonyme.');
+                
+            } catch (error) {
+                hideLoading();
+                showMessage('error', 'Erreur lors du traitement du fichier : ' + error.message);
+            }
+        }
+
+        // PDF text extraction améliorée pour gros documents
+        async function extractTextFromPDF(file) {
+            return new Promise((resolve, reject) => {
+                const arrayBuffer = file.arrayBuffer().then(async (buffer) => {
+                    try {
+                        pdfjsLib.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                        
+                        const pdf = await pdfjsLib.getDocument({
+                            data: buffer,
+                            verbosity: 0
+                        }).promise;
+                        
+                        let fullText = '';
+                        const totalPages = pdf.numPages;
+
+                        for (let i = 1; i <= totalPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items
+                                .map(item => item.str)
+                                .join(' ')
+                                .replace(/\s+/g, ' ');
+                            
+                            fullText += pageText + '\n\n';
+                            
+                            // Mise à jour du progress pour gros PDF
+                            if (totalPages > 5) {
+                                const progress = Math.round((i / totalPages) * 100);
+                                updateLoadingText(`Extraction page ${i}/${totalPages} (${progress}%)...`);
+                            }
+                        }
+
+                        resolve(fullText.trim());
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
+        // Word document text extraction (basique)
+        async function extractTextFromWord(file) {
+            throw new Error('Pour les fichiers Word, veuillez copier-coller le contenu dans la zone de texte. L\'extraction automatique Word n\'est pas encore disponible.');
+        }
+
+        // Main function: Generate Anonymous CV avec IA puissante
+        async function generateAnonymousCV() {
+            const cvText = cvTextInput.value.trim();
+            const jobTitle = document.getElementById('jobTitle').value.trim();
+
+            if (!cvText) {
+                showMessage('error', 'Veuillez fournir le contenu du CV (fichier ou texte)');
+                return;
+            }
+
+            if (!jobTitle) {
+                showMessage('error', 'Veuillez saisir le poste recherché');
+                return;
+            }
+
+            if (!AI_CONFIG.apiKey) {
+                showMessage('info', 'Clé API non configurée. Cliquez ici pour la configurer.');
+                apiKeyMessage.addEventListener('click', showApiKeyPrompt);
+                return;
+            }
+
+            try {
+                showLoading('Analyse du CV par l\'IA... Cela peut prendre quelques instants pour les CV longs.');
+                
+                const analysisResult = await analyzeCV(cvText);
+                
+                if (analysisResult) {
+                    displayAnonymousCV(analysisResult, jobTitle);
+                    displayInternalInfo();
+                    showMessage('success', 'CV anonyme généré avec succès !');
+                } else {
+                    throw new Error('Erreur lors de l\'analyse du CV');
+                }
+
+            } catch (error) {
+                showMessage('error', 'Erreur : ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // AI Analysis function optimisée pour gros CV
+        async function analyzeCV(cvText) {
+            const prompt = `Tu es un assistant expert en extraction et anonymisation de CV. Ta mission est d'analyser ce CV (qui peut faire jusqu'à 20 pages) et d'extraire EXACTEMENT les informations sans rien modifier.
+
+RÈGLES STRICTES D'ANONYMISATION :
+1. SUPPRIME UNIQUEMENT : nom, prénom, email, téléphone, adresse personnelle complète
+2. GARDE ABSOLUMENT TOUT LE RESTE mot pour mot sans aucune modification
+3. Ne résume JAMAIS, ne raccourcis JAMAIS, ne reformule JAMAIS
+4. Conserve toutes les dates, lieux, entreprises, missions, formations
+5. Garde chaque détail technique, chaque compétence, chaque projet
+6. Préserve la structure et l'organisation originale
+
+EXTRACTION REQUISE :
+- Toutes les expériences professionnelles complètes avec missions détaillées
+- Toutes les formations avec établissements et détails
+- Toutes les compétences techniques et soft skills
+- Tous les projets et réalisations
+- Toutes les certifications et formations
+- Langues et niveaux
+- Centres d'intérêt s'ils existent
+
+CV à traiter (peut être très long) :
+${cvText}
+
+Réponds UNIQUEMENT avec ce JSON structuré (sections existantes seulement) :
+
+{
+  "personal_info": {
+    "nom": "nom extrait ou null",
+    "prenom": "prénom extrait ou null", 
+    "email": "email trouvé ou null",
+    "telephone": "téléphone trouvé ou null",
+    "adresse": "adresse trouvée ou null"
+  },
+  "sections": {
+    "experiences": [
+      {
+        "entreprise": "nom exact entreprise",
+        "poste": "poste exact tel qu'écrit",
+        "dates": "dates exactes du CV",
+        "lieu": "lieu exact", 
+        "missions": ["mission 1 complète exacte", "mission 2 complète exacte"],
+        "description": "description complète si elle existe"
+      }
+    ],
+    "formations": [
+      {
+        "diplome": "diplôme exact complet",
+        "etablissement": "établissement exact",
+        "dates": "dates exactes",
+        "lieu": "lieu exact",
+        "details": "détails supplémentaires si ils existent"
+      }
+    ],
+    "competences": {
+      "techniques": ["compétence 1", "compétence 2"],
+      "langues": ["langue 1 avec niveau", "langue 2 avec niveau"],
+      "autres": ["autres compétences"]
+    },
+    "projets": [
+      {
+        "nom": "nom projet exact",
+        "description": "description complète exacte",
+        "technologies": ["tech 1", "tech 2"]
+      }
+    ],
+    "certifications": ["certification 1 complète", "certification 2 complète"],
+    "centres_interet": ["centre 1", "centre 2"],
+    "autres_sections": {
+      "nom_section": ["contenu exact complet"]
+    }
+  }
+}
+
+IMPORTANT : Si le CV est très long, assure-toi de tout traiter sans rien omettre.`;
+
+            try {
+                const response = await fetch(AI_CONFIG.apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AI_CONFIG.apiKey}`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.origin
+                    },
+                    body: JSON.stringify({
+                        model: AI_CONFIG.model,
+                        messages: [
+                            {
+                                role: 'system', 
+                                content: 'Tu es un expert en extraction de données CV. Tu analyses tout le contenu sans rien omettre et réponds UNIQUEMENT en JSON valide.'
+                            },
+                            {
+                                role: 'user',
+                                content: prompt
+                            }
+                        ],
+                        max_tokens: 8000, // Suffisant pour JSON de réponse
+                        temperature: 0.1 // Précision maximale
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`Erreur API ${response.status}: ${errorData}`);
+                }
+
+                const data = await response.json();
+                const content = data.choices[0].message.content;
+                
+                // Clean and parse JSON
+                const cleanJson = content.replace(/```json/g, '').replace(/```/g, '').trim();
+                return JSON.parse(cleanJson);
+
+            } catch (error) {
+                console.error('Erreur analyse IA:', error);
+                if (error.message.includes('rate limit')) {
+                    throw new Error('Limite de taux API atteinte. Attendez quelques instants et réessayez.');
+                }
+                throw error;
+            }
+        }
+
+        // Display Anonymous CV avec mise en forme parfaite
+        function displayAnonymousCV(data, jobTitle) {
+            const profileCode = document.getElementById('profileCode').value.trim() || 
+                              generateProfileCode(data.personal_info.nom, data.personal_info.prenom);
+
+            // Update header
+            document.getElementById('previewJobTitle').textContent = jobTitle;
+            document.getElementById('previewProfileCode').textContent = `PROFIL ${profileCode}`;
+
+            // Generate content
+            let html = '';
+            const sections = data.sections;
+
+            // Experiences professionnelles
+            if (sections.experiences && sections.experiences.length > 0) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Expériences Professionnelles</div>`;
+                
+                sections.experiences.forEach(exp => {
+                    html += `<div class="cv-experience">
+                        <div class="cv-company-role">${exp.entreprise} — ${exp.poste}</div>
+                        <div class="cv-duration-location">${exp.dates}${exp.lieu ? ` | ${exp.lieu}` : ''}</div>`;
+                    
+                    if (exp.description) {
+                        html += `<div class="cv-description">${exp.description}</div>`;
+                    }
+                    
+                    if (exp.missions && exp.missions.length > 0) {
+                        html += `<ul class="cv-tasks">`;
+                        exp.missions.forEach(mission => {
+                            html += `<li>${mission}</li>`;
+                        });
+                        html += `</ul>`;
+                    }
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+
+            // Formations
+            if (sections.formations && sections.formations.length > 0) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Formations</div>`;
+                
+                sections.formations.forEach(formation => {
+                    html += `<div class="cv-formation-item">
+                        <div class="cv-formation-title">${formation.diplome}</div>
+                        <div class="cv-formation-details">${formation.dates || ''}${formation.etablissement ? ` | ${formation.etablissement}` : ''}${formation.lieu ? ` | ${formation.lieu}` : ''}</div>`;
+                    
+                    if (formation.details) {
+                        html += `<div class="cv-description">${formation.details}</div>`;
+                    }
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+
+            // Compétences
+            if (sections.competences) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Compétences</div>`;
+                
+                if (sections.competences.techniques && sections.competences.techniques.length > 0) {
+                    html += `<div class="cv-competence-category">
+                        <div class="cv-competence-title">Compétences Techniques</div>
+                        <div class="cv-competence-list">`;
+                    sections.competences.techniques.forEach(comp => {
+                        html += `<span class="cv-competence-item">${comp}</span>`;
+                    });
+                    html += `</div></div>`;
+                }
+                
+                if (sections.competences.langues && sections.competences.langues.length > 0) {
+                    html += `<div class="cv-competence-category">
+                        <div class="cv-competence-title">Langues</div>
+                        <ul class="cv-simple-list">`;
+                    sections.competences.langues.forEach(langue => {
+                        html += `<li>${langue}</li>`;
+                    });
+                    html += `</ul></div>`;
+                }
+                
+                if (sections.competences.autres && sections.competences.autres.length > 0) {
+                    html += `<div class="cv-competence-category">
+                        <div class="cv-competence-title">Autres Compétences</div>
+                        <div class="cv-competence-list">`;
+                    sections.competences.autres.forEach(comp => {
+                        html += `<span class="cv-competence-item">${comp}</span>`;
+                    });
+                    html += `</div></div>`;
+                }
+                
+                html += `</div>`;
+            }
+
+            // Projets
+            if (sections.projets && sections.projets.length > 0) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Projets</div>`;
+                
+                sections.projets.forEach(projet => {
+                    html += `<div class="cv-experience">
+                        <div class="cv-company-role">${projet.nom}</div>`;
+                    if (projet.description) {
+                        html += `<div class="cv-description">${projet.description}</div>`;
+                    }
+                    if (projet.technologies && projet.technologies.length > 0) {
+                        html += `<div class="cv-competence-list" style="margin-top: 10px;">`;
+                        projet.technologies.forEach(tech => {
+                            html += `<span class="cv-competence-item">${tech}</span>`;
+                        });
+                        html += `</div>`;
+                    }
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+
+            // Certifications
+            if (sections.certifications && sections.certifications.length > 0) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Certifications</div>
+                    <ul class="cv-simple-list">`;
+                
+                sections.certifications.forEach(cert => {
+                    html += `<li>${cert}</li>`;
+                });
+                
+                html += `</ul></div>`;
+            }
+
+            // Centres d'intérêt
+            if (sections.centres_interet && sections.centres_interet.length > 0) {
+                html += `<div class="cv-section">
+                    <div class="cv-section-title">Centres d'intérêt</div>
+                    <ul class="cv-simple-list">`;
+                
+                sections.centres_interet.forEach(centre => {
+                    html += `<li>${centre}</li>`;
+                });
+                
+                html += `</ul></div>`;
+            }
+
+            // Autres sections dynamiques
+            if (sections.autres_sections) {
+                Object.entries(sections.autres_sections).forEach(([sectionName, sectionContent]) => {
+                    html += `<div class="cv-section">
+                        <div class="cv-section-title">${sectionName}</div>
+                        <ul class="cv-simple-list">`;
+                    
+                    sectionContent.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                    
+                    html += `</ul></div>`;
+                });
+            }
+
+            document.getElementById('previewContent').innerHTML = html;
+            cvPreview.classList.add('show');
+            previewActions.classList.add('show');
+        }
+
+        // Generate profile code
+        function generateProfileCode(nom, prenom) {
+            if (!nom || !prenom) {
+                // Génération aléatoire si pas de nom
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                return Array.from({length: 3}, () => letters[Math.floor(Math.random() * letters.length)]).join('');
+            }
+            
+            const firstLetter = prenom.charAt(0).toUpperCase();
+            const secondLetter = nom.charAt(0).toUpperCase();
+            const lastLetter = nom.charAt(nom.length - 1).toUpperCase();
+            
+            return firstLetter + secondLetter + lastLetter;
+        }
+
+        // Display internal information
+        function displayInternalInfo() {
+            const data = {
+                'Disponibilité': document.getElementById('availability').value || 'Non spécifiée',
+                'Mobilité': document.getElementById('mobility').value || 'Non spécifiée', 
+                'Prétention salariale': document.getElementById('salary').value || 'Non spécifiée',
+                'Remarque': document.getElementById('remark').value || 'Aucune',
+                'Remarque pour Soufyane': document.getElementById('soufyaneRemark').value || 'Aucune'
+            };
+
+            let html = '';
+            Object.entries(data).forEach(([label, value]) => {
+                html += `<div class="info-item">
+                    <span class="info-label">${label} :</span>
+                    <span class="info-value">${value}</span>
+                </div>`;
+            });
+
+            document.getElementById('infoGrid').innerHTML = html;
+            internalInfo.classList.add('show');
+        }
+
+        // Utility functions
+        function showLoading(message = 'Chargement...') {
+            document.querySelector('.loading-text').textContent = message;
+            loadingOverlay.style.display = 'flex';
+            generateBtn.disabled = true;
+        }
+
+        function updateLoadingText(message) {
+            document.querySelector('.loading-text').textContent = message;
+        }
+
+        function hideLoading() {
+            loadingOverlay.style.display = 'none';
+            generateBtn.disabled = false;
+        }
+
+        function showMessage(type, message) {
+            hideMessages();
+            let element;
+            if (type === 'success') element = successMessage;
+            else if (type === 'error') element = errorMessage;
+            else if (type === 'info') element = apiKeyMessage;
+            
+            if (element) {
+                element.textContent = message;
+                element.classList.add('show');
+                setTimeout(hideMessages, type === 'error' ? 8000 : 5000);
+            }
+        }
+
+        function hideMessages() {
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+            apiKeyMessage.classList.remove('show');
+        }
+
+        function downloadPDF() {
+            // Création d'un PDF simple avec window.print optimisé
+            const printContent = document.getElementById('cvPreview').innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            
+            // Rétablir les event listeners après print
+            location.reload();
+        }
+
+        function printCV() {
+            window.print();
+        }
+
+        function resetForm() {
+            // Reset all fields
+            document.querySelectorAll('.form-input, .cv-text-input').forEach(input => {
+                input.value = '';
+            });
+            
+            // Reset UI
+            cvPreview.classList.remove('show');
+            previewActions.classList.remove('show');
+            internalInfo.classList.remove('show');
+            uploadZone.querySelector('.upload-text').textContent = 'Glissez-déposez votre CV ici ou cliquez pour sélectionner';
+            hideMessages();
+        }
+
+        function showApiKeyPrompt() {
+            const apiKey = prompt('Veuillez saisir votre clé API OpenRouter :\n\n1. Créez un compte sur openrouter.ai\n2. Obtenez votre clé API\n3. Collez-la ici\n\nFormat : sk-or-xxxxx');
+            
+            if (apiKey && apiKey.startsWith('sk-or-')) {
+                AI_CONFIG.apiKey = apiKey;
+                localStorage.setItem('openrouter_api_key', apiKey);
+                showMessage('success', 'Clé API configurée avec succès ! Vous pouvez maintenant utiliser l\'outil.');
+            } else if (apiKey) {
+                showMessage('error', 'Format de clé API invalide. Elle doit commencer par sk-or-');
+            }
+        }
+
+        // Load API key from localStorage on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedApiKey = localStorage.getItem('openrouter_api_key');
+            if (savedApiKey) {
+                AI_CONFIG.apiKey = savedApiKey;
+            }
+        });
+
+        // Print styles
+        const printStyles = document.createElement('style');
+        printStyles.textContent = `
+            @media print {
+                body * { visibility: hidden; }
+                .cv-preview, .cv-preview * { visibility: visible; }
+                .cv-preview { 
+                    position: absolute; 
+                    left: 0; 
+                    top: 0; 
+                    width: 100%; 
+                    height: 100%;
+                    border: none !important;
+                    border-radius: 0 !important;
+                    box-shadow: none !important;
+                }
+                .cv-header { border-radius: 0 !important; }
+                .cv-content { padding: 20px !important; }
+            }
+        `;
+        document.head.appendChild(printStyles);
+    </script>
+</body>
+</html>
