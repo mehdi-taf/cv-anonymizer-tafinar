@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
             line-height: 1.6;
@@ -100,7 +100,7 @@
             border-radius: 3px;
         }
 
-        /* Upload Zone */
+        /* Upload Zone avec option image */
         .upload-zone {
             border: 3px dashed #004199;
             border-radius: 15px;
@@ -110,7 +110,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 25px;
-            position: relative;
         }
 
         .upload-zone:hover, .upload-zone.dragover {
@@ -126,10 +125,6 @@
             transition: all 0.3s ease;
         }
 
-        .upload-zone:hover .upload-icon {
-            transform: scale(1.1);
-        }
-
         .upload-text {
             color: #333;
             margin-bottom: 15px;
@@ -140,18 +135,51 @@
         .upload-formats {
             font-size: 14px;
             color: #666;
-            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .upload-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .upload-btn {
+            padding: 12px 20px;
+            border: 2px solid #004199;
+            background: white;
+            color: #004199;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #004199;
+            color: white;
+        }
+
+        .upload-btn.image-mode {
+            border-color: #00bf63;
+            color: #00bf63;
+        }
+
+        .upload-btn.image-mode:hover {
+            background: #00bf63;
+            color: white;
         }
 
         .file-input {
             display: none;
         }
 
-        /* Zone de texte ÉNORME pour CV de 30 pages */
+        /* Zone de texte optimisée */
         .cv-text-input {
             width: 100%;
-            min-height: 500px; /* Énorme pour 30 pages */
-            max-height: 800px;
+            min-height: 400px;
+            max-height: 600px;
             padding: 20px;
             border: 2px solid #e8ecf4;
             border-radius: 12px;
@@ -171,19 +199,11 @@
             box-shadow: 0 0 0 4px rgba(0, 65, 153, 0.1);
         }
 
-        .cv-text-input::placeholder {
-            color: #999;
-            font-size: 11px;
-            line-height: 1.4;
-        }
-
-        /* Caractères counter pour gros CV */
         .char-counter {
             text-align: right;
             font-size: 12px;
             color: #666;
             margin-bottom: 20px;
-            padding: 5px 0;
         }
 
         /* Form Fields */
@@ -230,29 +250,6 @@
             min-height: 100px;
             resize: vertical;
             font-family: inherit;
-        }
-
-        /* Sauvegarde automatique indicator */
-        .auto-save-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .save-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00bf63;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         /* Buttons */
@@ -312,27 +309,33 @@
             transform: translateY(-2px);
         }
 
-        /* Preview Section */
+        /* Preview Section - Format A4 */
         .cv-preview {
             border: 2px solid #e8ecf4;
             border-radius: 12px;
             background: white;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            min-height: 600px;
+            width: 100%;
+            max-width: 794px; /* A4 width en pixels à 96 DPI */
+            margin: 0 auto;
         }
 
-        /* CV Styles optimisés pour impression */
+        /* CV Container - Format A4 exact */
         .cv-container {
-            max-width: 100%;
+            width: 794px; /* A4 width */
+            min-height: 1123px; /* A4 height */
             background: white;
-            font-size: 11px;
-            line-height: 1.5;
+            font-size: 11pt; /* Police 11 comme demandé */
+            line-height: 1.4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0 auto;
+            position: relative;
         }
 
         .cv-header {
             background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
-            padding: 25px 30px;
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -341,96 +344,181 @@
 
         .cv-logo-container {
             background: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .cv-logo-container img {
-            height: 45px;
+            height: 35px;
             width: auto;
         }
 
         .cv-profile-info {
             text-align: center;
             flex: 1;
-            margin-left: 40px;
+            margin-left: 30px;
         }
 
         .cv-job-title {
-            font-size: 16px;
+            font-size: 16pt;
             font-weight: 700;
-            margin-bottom: 8px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            margin-bottom: 6px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .cv-profile-code {
-            font-size: 13px;
+            font-size: 12pt;
             font-weight: 700;
             color: #00ff7f;
             background: rgba(0, 255, 127, 0.15);
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 15px;
             display: inline-block;
             border: 1px solid rgba(0, 255, 127, 0.3);
         }
 
         .cv-content {
-            padding: 30px 35px;
+            padding: 25px 30px;
             background: white;
         }
 
-        /* Contenu CV préservé EXACTEMENT */
-        .cv-raw-content {
-            white-space: pre-line;
-            font-size: 11px;
-            line-height: 1.6;
-            color: #333;
-            margin: 20px 0;
+        /* Sections CV avec couleurs exactes */
+        .cv-section {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
         }
 
-        .cv-raw-content h1, .cv-raw-content h2, .cv-raw-content h3 {
-            color: #004199;
-            margin: 20px 0 10px 0;
-            font-weight: 700;
-        }
-
-        .cv-raw-content h1 {
-            font-size: 14px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #004199 0%, #0056cc 100%);
-            color: white;
+        .cv-section-title {
+            background: #004199; /* Bleu exact */
+            color: white; /* Blanc sur bleu */
             padding: 8px 20px;
-            border-radius: 20px;
+            font-size: 12pt;
+            font-weight: 700;
             text-align: center;
-            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 65, 153, 0.2);
+            letter-spacing: 0.5px;
         }
 
-        .cv-raw-content h2 {
-            font-size: 13px;
+        .cv-experience {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
             border-left: 4px solid #004199;
-            padding-left: 15px;
-            margin: 20px 0 10px 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         }
 
-        .cv-raw-content h3 {
-            font-size: 12px;
-            color: #00bf63;
-            margin: 15px 0 8px 0;
+        .cv-job-position {
+            color: #004199; /* Bleu pour les postes */
+            font-weight: 700;
+            font-size: 11pt;
+            margin-bottom: 6px;
+            line-height: 1.3;
         }
 
-        .cv-raw-content ul, .cv-raw-content ol {
-            margin: 10px 0 10px 20px;
+        .cv-job-details {
+            color: #00bf63; /* Vert pour dates/lieu */
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 12px;
+            background: rgba(0, 191, 99, 0.1);
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid rgba(0, 191, 99, 0.2);
         }
 
-        .cv-raw-content li {
-            margin-bottom: 5px;
-            line-height: 1.5;
+        .cv-subcategory {
+            color: #000; /* Noir gras pour sous-catégories */
+            font-weight: 700;
+            font-size: 11pt;
+            margin: 10px 0 8px 0;
         }
 
-        .cv-raw-content p {
+        .cv-missions {
             margin: 8px 0;
+        }
+
+        .cv-missions ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .cv-missions li {
+            margin-bottom: 6px;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000; /* Noir pour le texte */
             text-align: justify;
+        }
+
+        .cv-competence-category {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-top: 3px solid #004199;
+        }
+
+        .cv-competence-title {
+            font-weight: 700;
+            color: #004199;
+            margin-bottom: 10px;
+            font-size: 11pt;
+        }
+
+        .cv-competence-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .cv-competence-item {
+            background: white;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10pt;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .cv-formation-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #00bf63;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .cv-formation-title {
+            font-weight: 700;
+            color: #004199;
+            font-size: 11pt;
+            margin-bottom: 4px;
+        }
+
+        .cv-formation-details {
+            color: #00bf63;
+            font-size: 10pt;
+            font-weight: 600;
+        }
+
+        .cv-simple-list ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .cv-simple-list li {
+            margin-bottom: 6px;
+            font-size: 11pt;
+            color: #000;
+            line-height: 1.4;
         }
 
         /* Messages */
@@ -462,6 +550,7 @@
             background: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
+            cursor: pointer;
         }
 
         /* Actions */
@@ -477,7 +566,7 @@
             display: flex;
         }
 
-        /* Internal Info avec sauvegarde */
+        /* Internal Info */
         .internal-info {
             background: #fff3cd;
             border: 2px solid #ffeaa7;
@@ -512,7 +601,7 @@
             font-style: italic;
         }
 
-        /* Loading optimisé pour gros CV */
+        /* Loading */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -562,14 +651,7 @@
             font-size: 14px;
         }
 
-        .loading-progress {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #004199;
-            font-weight: 600;
-        }
-
-        /* Styles d'impression parfaits */
+        /* Styles d'impression A4 parfaits */
         @media print {
             body * {
                 visibility: hidden;
@@ -590,6 +672,14 @@
                 border: none;
                 border-radius: 0;
                 box-shadow: none;
+                max-width: none;
+            }
+            
+            .cv-container {
+                width: 210mm; /* A4 width exact */
+                min-height: 297mm; /* A4 height exact */
+                margin: 0;
+                box-shadow: none;
             }
             
             .cv-header {
@@ -597,12 +687,16 @@
                 page-break-inside: avoid;
             }
             
-            .cv-content {
-                page-break-inside: auto;
+            .cv-section {
+                page-break-inside: avoid;
             }
             
-            .cv-raw-content h1 {
+            .cv-section-title {
                 page-break-after: avoid;
+            }
+            
+            .cv-experience {
+                page-break-inside: avoid;
             }
         }
 
@@ -611,6 +705,11 @@
             .main-container {
                 grid-template-columns: 1fr;
                 max-width: 900px;
+            }
+            
+            .cv-container {
+                width: 100%;
+                max-width: 794px;
             }
         }
 
@@ -631,18 +730,22 @@
             }
 
             .cv-text-input {
-                min-height: 400px;
-                font-size: 11px;
+                min-height: 300px;
             }
 
             .cv-header {
                 flex-direction: column;
                 text-align: center;
-                gap: 20px;
+                gap: 15px;
+                padding: 15px 20px;
             }
 
             .cv-profile-info {
                 margin-left: 0;
+            }
+
+            .upload-options {
+                flex-direction: column;
             }
 
             .actions {
@@ -651,6 +754,15 @@
 
             .btn {
                 width: 100%;
+            }
+            
+            .cv-container {
+                font-size: 10pt;
+                padding: 0 10px;
+            }
+            
+            .cv-content {
+                padding: 20px 15px;
             }
         }
     </style>
@@ -664,7 +776,7 @@
             </div>
             <div class="header-text">
                 <h1>CV Anonymizer</h1>
-                <p>Anonymisation intelligente de CV jusqu'à 30 pages</p>
+                <p>Anonymisation professionnelle avec traitement image</p>
             </div>
         </div>
     </div>
@@ -675,93 +787,65 @@
         <div class="section">
             <div class="section-title">CV à traiter</div>
             
-            <!-- Upload Zone -->
+            <!-- Upload Zone avec options -->
             <div class="upload-zone" id="uploadZone">
                 <div class="upload-icon">📄</div>
-                <div class="upload-text">Glissez-déposez votre CV ici ou cliquez pour sélectionner</div>
-                <div class="upload-formats">Formats supportés : PDF, DOC, DOCX (jusqu'à 30 pages)</div>
+                <div class="upload-text">Glissez-déposez votre CV ou sélectionnez une option</div>
+                <div class="upload-formats">PDF, DOC, DOCX ou IMAGE (PNG, JPG)</div>
+                
+                <div class="upload-options">
+                    <button class="upload-btn" id="textBtn">📄 Extraire le texte</button>
+                    <button class="upload-btn image-mode" id="imageBtn">🖼️ Traiter comme image</button>
+                </div>
+                
                 <input type="file" id="fileInput" class="file-input" accept=".pdf,.doc,.docx">
+                <input type="file" id="imageInput" class="file-input" accept="image/*,.pdf">
             </div>
 
             <div style="text-align: center; margin: 20px 0; color: #666; font-weight: 600; font-size: 16px;">OU</div>
 
-            <!-- Text Input ÉNORME -->
+            <!-- Text Input -->
             <textarea 
                 id="cvTextInput" 
                 class="cv-text-input" 
-                placeholder="Collez ici le texte complet de votre CV (même très long, jusqu'à 30 pages)...
+                placeholder="Collez ici le texte de votre CV...
 
-EXEMPLE POUR CV LONG :
-=====================================
+Si votre CV est mal formaté après copier-coller, utilisez l'option 'Traiter comme image' ci-dessus.
 
-DUPONT Jean
-123 rue de la République  
-75001 Paris
-jean.dupont@email.com
-06 12 34 56 78
+EXEMPLE :
+================
 
-PROFIL PROFESSIONNEL
-Ingénieur expérimenté avec 15 ans d'expertise...
-[Texte long du profil...]
+SOFREN | Lyon | Janvier 2024 - présent
+INGÉNIEUR ENVIRONNEMENT
+Mission chez EDF | CNPE Saint-Alban | Avril 2024 - Juin 2025
+• Rédaction du Rapport Environnemental Annuel 2024
+• Proposition d'améliorations dans le processus de réalisation du REA
+• Élaboration du Bulletin d'Information Environnement
 
-EXPÉRIENCE PROFESSIONNELLE
-
-Senior Manager - ABC Corporation
-Janvier 2020 - Présent | Paris, France
-• Direction d'équipe de 25 personnes
-• Gestion de budget annuel de 5M€
-• Développement de nouvelles stratégies commerciales
-• [Toutes vos missions détaillées...]
-
-Chef de Projet - XYZ Consulting  
-Mars 2017 - Décembre 2019 | Lyon, France
-• Pilotage de projets complexes
-• [Toutes vos réalisations...]
+INGÉNIEUR D'ÉTUDES ENVIRONNEMENT ET RISQUE CONVENTIONNEL
+Mission chez EDVANCE | Lyon | Janvier 2024 - Janvier 2025
+CHIMIE
+• Réalisation d'études de risque incendie
+• Études environnementales selon la norme ISO 14001
 
 FORMATION
+Master Génie des Procédés | INSA Lyon | 2020-2022
 
-Master Management - École Supérieure
-2015-2017 | Mention Très Bien
-Spécialisation : Stratégie d'entreprise
-Mémoire : [Titre complet du mémoire...]
+COMPÉTENCES
+• AutoCAD, SolidWorks
+• Analyse de risques
+• ISO 14001
 
-COMPÉTENCES TECHNIQUES
-• Leadership et management d'équipes
-• Gestion de projets (PMP, Agile)
-• Analyses financières avancées
-• [Toutes vos compétences...]
-
-LANGUES
-• Français : Natif
-• Anglais : Courant (TOEIC 950)
-• Espagnol : Intermédiaire
-
-PROJETS SIGNIFICATIFS
-[Décrivez tous vos projets en détail...]
-
-PUBLICATIONS & CONFÉRENCES  
-[Listez toutes vos publications...]
-
-CENTRES D'INTÉRÊT
-[Vos hobbies et passions...]
-
-=====================================
-Continuez avec TOUT votre contenu...
-Le système traitera automatiquement même les CV très longs !"></textarea>
+================
+Continuez avec tout votre CV..."></textarea>
 
             <div class="char-counter" id="charCounter">0 caractères</div>
-
-            <!-- Auto-save status -->
-            <div class="auto-save-status" id="autoSaveStatus" style="display: none;">
-                <div class="save-dot"></div>
-                <span>Sauvegarde automatique activée</span>
-            </div>
 
             <!-- Form Fields -->
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label required">Poste recherché</label>
-                    <input type="text" id="jobTitle" class="form-input" placeholder="Ex: Senior Manager / Ingénieur Systèmes" required>
+                    <input type="text" id="jobTitle" class="form-input" placeholder="Ex: Ingénieur Environnement Senior" required>
                 </div>
 
                 <div class="form-group">
@@ -776,17 +860,17 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
 
                 <div class="form-group">
                     <label class="form-label">Mobilité géographique</label>
-                    <input type="text" id="mobility" class="form-input" placeholder="Ex: France entière, International, Région Parisienne...">
+                    <input type="text" id="mobility" class="form-input" placeholder="Ex: France entière, Région Lyonnaise...">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Prétention salariale</label>
-                    <input type="text" id="salary" class="form-input" placeholder="Ex: 65-75k€, À négocier selon poste...">
+                    <input type="text" id="salary" class="form-input" placeholder="Ex: 45-55k€, À négocier...">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Remarques générales</label>
-                    <textarea id="remark" class="form-input form-textarea" placeholder="Remarques sur le profil, points forts, spécificités..."></textarea>
+                    <textarea id="remark" class="form-input form-textarea" placeholder="Remarques sur le profil, points forts..."></textarea>
                 </div>
 
                 <div class="form-group">
@@ -802,19 +886,19 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
 
             <!-- Messages -->
             <div id="successMessage" class="message message-success">
-                CV anonyme généré avec succès ! Toutes les données sont sauvegardées.
+                CV anonyme généré avec succès ! Format A4 optimisé.
             </div>
             <div id="errorMessage" class="message message-error">
                 Erreur lors de la génération. Vérifiez les données ou réessayez.
             </div>
-            <div id="apiKeyMessage" class="message message-info" style="cursor: pointer;">
+            <div id="apiKeyMessage" class="message message-info">
                 Cliquez ici pour configurer votre clé API et utiliser l'outil.
             </div>
         </div>
 
         <!-- Preview Section -->
         <div class="section">
-            <div class="section-title">Aperçu du CV anonyme</div>
+            <div class="section-title">Aperçu CV anonyme (Format A4)</div>
             
             <div id="cvPreview" class="cv-preview">
                 <div class="cv-container">
@@ -828,11 +912,11 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                         </div>
                     </div>
                     <div class="cv-content">
-                        <div id="previewContent" class="cv-raw-content">
+                        <div id="previewContent">
                             <div style="text-align: center; color: #666; padding: 50px 20px;">
-                                <p style="font-size: 16px; margin-bottom: 15px;">L'aperçu du CV anonyme apparaîtra ici</p>
-                                <p style="font-size: 14px; margin-bottom: 10px;">Fournissez un CV (même très long) et cliquez sur "Analyser"</p>
-                                <p style="font-size: 12px; color: #999;">Le système préserve tout le contenu professionnel</p>
+                                <p style="font-size: 14pt; margin-bottom: 15px;">L'aperçu du CV anonyme apparaîtra ici</p>
+                                <p style="font-size: 12pt; margin-bottom: 10px;">Format A4 - Police 11pt</p>
+                                <p style="font-size: 11pt; color: #999;">Fournissez un CV et cliquez sur "Analyser"</p>
                             </div>
                         </div>
                     </div>
@@ -852,7 +936,7 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                 </button>
             </div>
 
-            <!-- Internal Info avec sauvegarde -->
+            <!-- Internal Info -->
             <div id="internalInfo" class="internal-info">
                 <div class="section-title">Informations sauvegardées</div>
                 <div id="infoGrid" class="info-grid"></div>
@@ -860,32 +944,35 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
         </div>
     </div>
 
-    <!-- Loading Overlay pour gros CV -->
+    <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-content">
             <div class="loading-spinner"></div>
             <div class="loading-text">Analyse en cours...</div>
-            <div class="loading-subtext">L'IA traite votre CV complet</div>
-            <div class="loading-progress" id="loadingProgress"></div>
+            <div class="loading-subtext">Traitement du CV par l'IA</div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
-        // Configuration IA renforcée pour gros CV
+        // Configuration IA avec vision
         const AI_CONFIG = {
             apiUrl: 'https://openrouter.ai/api/v1/chat/completions',
             apiKey: '',
-            model: 'anthropic/claude-3.5-sonnet' // Le plus puissant pour CV de 30 pages
+            textModel: 'anthropic/claude-3.5-sonnet',
+            visionModel: 'anthropic/claude-3.5-sonnet' // Même modèle avec vision
         };
 
-        // Variables globales pour sauvegarde
+        // Variables globales
         let currentCvData = null;
-        let autoSaveInterval = null;
+        let processingMode = 'text'; // 'text' ou 'image'
 
         // Elements DOM
         const uploadZone = document.getElementById('uploadZone');
+        const textBtn = document.getElementById('textBtn');
+        const imageBtn = document.getElementById('imageBtn');
         const fileInput = document.getElementById('fileInput');
+        const imageInput = document.getElementById('imageInput');
         const cvTextInput = document.getElementById('cvTextInput');
         const generateBtn = document.getElementById('generateBtn');
         const loadingOverlay = document.getElementById('loadingOverlay');
@@ -896,25 +983,35 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
         const apiKeyMessage = document.getElementById('apiKeyMessage');
         const internalInfo = document.getElementById('internalInfo');
         const charCounter = document.getElementById('charCounter');
-        const autoSaveStatus = document.getElementById('autoSaveStatus');
 
         // Event Listeners
-        uploadZone.addEventListener('click', () => fileInput.click());
+        textBtn.addEventListener('click', () => {
+            processingMode = 'text';
+            fileInput.click();
+        });
+
+        imageBtn.addEventListener('click', () => {
+            processingMode = 'image';
+            imageInput.click();
+        });
+
         uploadZone.addEventListener('dragover', handleDragOver);
         uploadZone.addEventListener('dragleave', handleDragLeave);
         uploadZone.addEventListener('drop', handleDrop);
-        fileInput.addEventListener('change', handleFileSelect);
+        
+        fileInput.addEventListener('change', (e) => handleFileSelect(e, 'text'));
+        imageInput.addEventListener('change', (e) => handleFileSelect(e, 'image'));
+        
         generateBtn.addEventListener('click', generateAnonymousCV);
         document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
         document.getElementById('printBtn').addEventListener('click', printCV);
         document.getElementById('modifyBtn').addEventListener('click', enableModification);
         apiKeyMessage.addEventListener('click', showApiKeyPrompt);
 
-        // Character counter pour gros CV
         cvTextInput.addEventListener('input', updateCharCounter);
         cvTextInput.addEventListener('input', debounceAutoSave);
 
-        // Auto-save pour tous les champs
+        // Auto-save
         const formInputs = ['jobTitle', 'profileCode', 'availability', 'mobility', 'salary', 'remark', 'soufyaneRemark'];
         formInputs.forEach(id => {
             document.getElementById(id).addEventListener('input', debounceAutoSave);
@@ -923,19 +1020,8 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
         function updateCharCounter() {
             const count = cvTextInput.value.length;
             charCounter.textContent = `${count.toLocaleString()} caractères`;
-            
-            if (count > 100000) {
-                charCounter.style.color = '#dc3545';
-                charCounter.textContent += ' (CV très long - traitement optimisé)';
-            } else if (count > 50000) {
-                charCounter.style.color = '#fd7e14';
-                charCounter.textContent += ' (CV long)';
-            } else {
-                charCounter.style.color = '#666';
-            }
         }
 
-        // Debounced auto-save
         let autoSaveTimeout;
         function debounceAutoSave() {
             clearTimeout(autoSaveTimeout);
@@ -945,11 +1031,6 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
         function autoSave() {
             const formData = collectFormData();
             localStorage.setItem('cv_anonymizer_data', JSON.stringify(formData));
-            
-            autoSaveStatus.style.display = 'flex';
-            setTimeout(() => {
-                autoSaveStatus.style.display = 'none';
-            }, 3000);
         }
 
         function collectFormData() {
@@ -964,43 +1045,6 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                 soufyaneRemark: document.getElementById('soufyaneRemark').value,
                 timestamp: new Date().toISOString()
             };
-        }
-
-        function loadSavedData() {
-            const saved = localStorage.getItem('cv_anonymizer_data');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    cvTextInput.value = data.cvText || '';
-                    document.getElementById('jobTitle').value = data.jobTitle || '';
-                    document.getElementById('profileCode').value = data.profileCode || '';
-                    document.getElementById('availability').value = data.availability || '';
-                    document.getElementById('mobility').value = data.mobility || '';
-                    document.getElementById('salary').value = data.salary || '';
-                    document.getElementById('remark').value = data.remark || '';
-                    document.getElementById('soufyaneRemark').value = data.soufyaneRemark || '';
-                    updateCharCounter();
-                    
-                    // Charger le CV généré s'il existe
-                    const savedCV = localStorage.getItem('cv_anonymizer_generated');
-                    if (savedCV) {
-                        currentCvData = JSON.parse(savedCV);
-                        displaySavedCV();
-                    }
-                } catch (e) {
-                    console.log('Erreur chargement données sauvegardées');
-                }
-            }
-        }
-
-        function displaySavedCV() {
-            if (currentCvData) {
-                document.getElementById('previewJobTitle').textContent = currentCvData.jobTitle;
-                document.getElementById('previewProfileCode').textContent = `PROFIL ${currentCvData.profileCode}`;
-                document.getElementById('previewContent').innerHTML = currentCvData.anonymizedContent;
-                previewActions.classList.add('show');
-                displayInternalInfo();
-            }
         }
 
         // Drag & Drop handlers
@@ -1019,54 +1063,152 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
             uploadZone.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                processFile(files[0]);
+                // Auto-detect si c'est une image
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    processingMode = 'image';
+                    processFile(file, 'image');
+                } else {
+                    processingMode = 'text';
+                    processFile(file, 'text');
+                }
             }
         }
 
-        function handleFileSelect(e) {
+        function handleFileSelect(e, mode) {
             const file = e.target.files[0];
             if (file) {
-                processFile(file);
+                processFile(file, mode);
             }
         }
 
-        // File processing amélioré pour gros PDF
-        async function processFile(file) {
+        // File processing
+        async function processFile(file, mode) {
             try {
-                showLoading('Extraction du texte...', 'Traitement en cours pour fichier volumineux');
+                showLoading(`${mode === 'image' ? 'Analyse image' : 'Extraction texte'}...`, 'Traitement en cours');
                 
-                let text = '';
-                const maxSize = 50 * 1024 * 1024; // 50MB max
-                
-                if (file.size > maxSize) {
-                    throw new Error('Fichier trop volumineux (max 50MB)');
-                }
-                
-                if (file.type === 'application/pdf') {
-                    text = await extractTextFromPDF(file);
-                } else if (file.type.includes('word') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
-                    text = await extractTextFromWord(file);
+                if (mode === 'image') {
+                    await processImageFile(file);
                 } else {
-                    throw new Error('Format non supporté. Utilisez PDF, DOC ou DOCX.');
+                    await processTextFile(file);
                 }
-
-                if (text.length < 100) {
-                    throw new Error('Le texte extrait semble trop court. Vérifiez le fichier ou utilisez la zone de texte.');
-                }
-
-                cvTextInput.value = text;
-                uploadZone.querySelector('.upload-text').textContent = `Fichier chargé : ${file.name}`;
-                updateCharCounter();
-                hideLoading();
-                showMessage('success', `Fichier traité avec succès ! ${text.length.toLocaleString()} caractères extraits.`);
                 
             } catch (error) {
                 hideLoading();
-                showMessage('error', 'Erreur traitement fichier : ' + error.message);
+                showMessage('error', 'Erreur traitement : ' + error.message);
             }
         }
 
-        // PDF extraction optimisée pour 30 pages
+        async function processTextFile(file) {
+            let text = '';
+            
+            if (file.type === 'application/pdf') {
+                text = await extractTextFromPDF(file);
+            } else if (file.type.includes('word') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+                text = await extractTextFromWord(file);
+            } else {
+                throw new Error('Format non supporté pour extraction texte');
+            }
+
+            cvTextInput.value = text;
+            updateCharCounter();
+            hideLoading();
+            showMessage('success', `Texte extrait avec succès ! ${text.length.toLocaleString()} caractères.`);
+        }
+
+        async function processImageFile(file) {
+            // Convertir l'image en base64
+            const base64 = await fileToBase64(file);
+            
+            // Analyser directement l'image avec l'IA vision
+            const extractedText = await analyzeImageCV(base64, file.type);
+            
+            cvTextInput.value = extractedText;
+            updateCharCounter();
+            hideLoading();
+            showMessage('success', 'CV analysé depuis l\'image avec succès !');
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64 = reader.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Analyse d'image CV avec IA vision
+        async function analyzeImageCV(base64Image, mimeType) {
+            if (!AI_CONFIG.apiKey) {
+                throw new Error('Clé API requise');
+            }
+
+            const prompt = `Tu analyses cette image de CV. Ton objectif est d'extraire TOUT le texte visible en préservant la structure et l'organisation.
+
+RÈGLES D'EXTRACTION :
+1. Extrait TOUT le texte visible, même les petits détails
+2. Préserve l'ordre et la structure originale
+3. Identifie les sections (expériences, formations, compétences, etc.)
+4. Garde les dates, lieux, entreprises, missions exactement comme écrit
+5. N'invente RIEN, n'ajoute RIEN qui ne soit pas visible
+6. Structure le texte de manière lisible
+
+Réponds avec le texte complet extrait de l'image, bien structuré et lisible.`;
+
+            try {
+                const response = await fetch(AI_CONFIG.apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AI_CONFIG.apiKey}`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.origin
+                    },
+                    body: JSON.stringify({
+                        model: AI_CONFIG.visionModel,
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'Tu es un expert en extraction de texte depuis des images de CV. Tu extrais tout le texte visible sans rien modifier ni ajouter.'
+                            },
+                            {
+                                role: 'user',
+                                content: [
+                                    {
+                                        type: 'text',
+                                        text: prompt
+                                    },
+                                    {
+                                        type: 'image_url',
+                                        image_url: {
+                                            url: `data:${mimeType};base64,${base64Image}`
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        max_tokens: 4000,
+                        temperature: 0.1
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Erreur API vision ${response.status}: ${errorText}`);
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content;
+
+            } catch (error) {
+                throw new Error('Erreur analyse image : ' + error.message);
+            }
+        }
+
+        // PDF text extraction
         async function extractTextFromPDF(file) {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -1081,10 +1223,6 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                     let fullText = '';
                     const totalPages = pdf.numPages;
 
-                    if (totalPages > 30) {
-                        updateLoadingProgress(`Document très volumineux (${totalPages} pages). Traitement en cours...`);
-                    }
-
                     for (let i = 1; i <= totalPages; i++) {
                         const page = await pdf.getPage(i);
                         const textContent = await page.getTextContent();
@@ -1098,16 +1236,6 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                         if (pageText) {
                             fullText += pageText + '\n\n';
                         }
-                        
-                        // Progress update pour gros documents
-                        if (totalPages > 5) {
-                            const progress = Math.round((i / totalPages) * 100);
-                            updateLoadingProgress(`Page ${i}/${totalPages} (${progress}%)`);
-                        }
-                    }
-
-                    if (fullText.trim().length === 0) {
-                        throw new Error('Aucun texte extractible du PDF');
                     }
 
                     resolve(fullText.trim());
@@ -1118,10 +1246,10 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
         }
 
         async function extractTextFromWord(file) {
-            throw new Error('Extraction Word non disponible. Copiez-collez le contenu dans la zone de texte.');
+            throw new Error('Extraction Word non disponible. Utilisez l\'option image ou copiez-collez le texte.');
         }
 
-        // Génération CV anonyme TOTALEMENT préservée
+        // Génération CV anonyme avec structure EXACTE
         async function generateAnonymousCV() {
             const cvText = cvTextInput.value.trim();
             const jobTitle = document.getElementById('jobTitle').value.trim();
@@ -1142,13 +1270,12 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
             }
 
             try {
-                showLoading('Analyse IA en cours...', 'Traitement intelligent du CV complet');
+                showLoading('Analyse et anonymisation...', 'Structuration avec vos couleurs exactes');
                 
-                const analysisResult = await analyzeCV(cvText);
+                const analysisResult = await analyzeAndStructureCV(cvText);
                 
                 if (analysisResult) {
-                    const profileCode = document.getElementById('profileCode').value.trim() || 
-                                     generateProfileCode();
+                    const profileCode = document.getElementById('profileCode').value.trim() || generateProfileCode();
 
                     currentCvData = {
                         jobTitle: jobTitle,
@@ -1158,14 +1285,13 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
                         processedAt: new Date().toISOString()
                     };
 
-                    // Sauvegarde du CV généré
                     localStorage.setItem('cv_anonymizer_generated', JSON.stringify(currentCvData));
                     
                     displayAnonymousCV();
                     displayInternalInfo();
-                    showMessage('success', 'CV anonyme généré et sauvegardé avec succès !');
+                    showMessage('success', 'CV anonyme généré avec mise en forme professionnelle !');
                 } else {
-                    throw new Error('Aucune réponse de l\'IA');
+                    throw new Error('Erreur lors de l\'analyse');
                 }
 
             } catch (error) {
@@ -1175,29 +1301,60 @@ Le système traitera automatiquement même les CV très longs !"></textarea>
             }
         }
 
-        // IA Analysis TOTALEMENT préservée - ZÉRO modification
-        async function analyzeCV(cvText) {
-            const prompt = `Tu es un expert en anonymisation de CV. Ta mission est de PRÉSERVER EXACTEMENT tout le contenu professionnel et de supprimer UNIQUEMENT les informations personnelles.
+        // IA Analysis avec structure PARFAITE
+        async function analyzeAndStructureCV(cvText) {
+            const prompt = `Tu es un expert en anonymisation et structuration de CV. Ta mission :
 
-RÈGLES ABSOLUES :
-1. SUPPRIME UNIQUEMENT : nom, prénom, email, téléphone, adresse personnelle complète
-2. GARDE ABSOLUMENT TOUT LE RESTE sans aucune modification
-3. INTERDICTION FORMELLE de résumer, raccourcir, reformuler ou changer quoi que ce soit
-4. Préserve CHAQUE mot, CHAQUE phrase, CHAQUE détail professionnel
-5. Conserve la structure exacte, les dates, lieux, entreprises, missions
-6. Garde TOUS les projets, réalisations, compétences, formations
-7. Préserve les descriptions longues et détaillées
+1. ANONYMISATION : Supprimer UNIQUEMENT nom, prénom, email, téléphone, adresse personnelle
+2. PRÉSERVATION TOTALE : Garder EXACTEMENT tout le contenu professionnel 
+3. STRUCTURATION : Organiser selon l'ordre OBLIGATOIRE
 
-PROCESSUS :
-1. Identifie les infos personnelles à supprimer
-2. Supprime-les proprement
-3. Retourne EXACTEMENT tout le reste tel quel
-4. Applique une mise en forme HTML simple pour la lisibilité
+ORDRE DES SECTIONS OBLIGATOIRE :
+1. EXPÉRIENCES PROFESSIONNELLES (en premier)
+2. COMPÉTENCES  
+3. FORMATIONS
+4. Autres sections (langues, centres d'intérêt, etc.)
 
-CV à traiter (peut être très long, jusqu'à 30 pages) :
-${cvText}
+SUPPRESSION OBLIGATOIRE :
+- Toutes les introductions type "Profil professionnel", "À propos", "Présentation"
+- Nom, prénom, email, téléphone, adresse personnelle
 
-Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le contenu professionnel :`;
+RÈGLES STRICTES :
+- Ne résume JAMAIS, ne raccourcis JAMAIS
+- Garde chaque mot des expériences et missions
+- Préserve toutes les dates, lieux, entreprises
+- Garde toutes les formations détaillées
+- Conserve toutes les compétences listées
+
+FORMAT DE RÉPONSE JSON :
+{
+  "experiences": [
+    {
+      "poste": "poste exact",
+      "entreprise": "entreprise exacte", 
+      "dates": "dates exactes",
+      "lieu": "lieu exact",
+      "subcategory": "sous-catégorie si elle existe ou null",
+      "missions": ["mission 1 exacte", "mission 2 exacte"]
+    }
+  ],
+  "competences": ["compétence 1", "compétence 2"],
+  "formations": [
+    {
+      "diplome": "diplôme exact",
+      "etablissement": "établissement exact",
+      "dates": "dates exactes",
+      "lieu": "lieu exact"
+    }
+  ],
+  "autres_sections": {
+    "langues": ["langue 1", "langue 2"],
+    "centres_interet": ["centre 1", "centre 2"]
+  }
+}
+
+CV à traiter :
+${cvText}`;
 
             try {
                 const response = await fetch(AI_CONFIG.apiUrl, {
@@ -1208,11 +1365,11 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
                         'HTTP-Referer': window.location.origin
                     },
                     body: JSON.stringify({
-                        model: AI_CONFIG.model,
+                        model: AI_CONFIG.textModel,
                         messages: [
                             {
                                 role: 'system', 
-                                content: 'Tu es un expert en anonymisation de CV. Tu préserves EXACTEMENT tout le contenu professionnel et supprimes seulement les infos personnelles. Tu réponds en HTML simple et propre.'
+                                content: 'Tu es un expert en CV. Tu structures selon l\'ordre exact demandé et préserves tout le contenu professionnel. Tu réponds UNIQUEMENT en JSON valide.'
                             },
                             {
                                 role: 'user',
@@ -1220,33 +1377,144 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
                             }
                         ],
                         max_tokens: 8000,
-                        temperature: 0.05 // Précision maximale
+                        temperature: 0.05
                     })
                 });
 
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`Erreur API ${response.status}: ${errorText}`);
+                    throw new Error(`Erreur API ${response.status}`);
                 }
 
                 const data = await response.json();
                 const content = data.choices[0].message.content;
                 
-                // Nettoyer le HTML s'il y a des balises markdown
-                const cleanContent = content
-                    .replace(/```html/g, '')
-                    .replace(/```/g, '')
-                    .trim();
-
-                return cleanContent;
+                const cleanJson = content.replace(/```json/g, '').replace(/```/g, '').trim();
+                const parsedData = JSON.parse(cleanJson);
+                
+                return generateCVHTML(parsedData);
 
             } catch (error) {
                 console.error('Erreur IA:', error);
-                if (error.message.includes('rate limit')) {
-                    throw new Error('Limite API atteinte. Attendez quelques instants.');
-                }
                 throw error;
             }
+        }
+
+        // Génération HTML avec couleurs EXACTES
+        function generateCVHTML(data) {
+            let html = '';
+
+            // 1. EXPÉRIENCES PROFESSIONNELLES (obligatoirement en premier)
+            if (data.experiences && data.experiences.length > 0) {
+                html += `
+                    <div class="cv-section">
+                        <div class="cv-section-title">Expériences Professionnelles</div>
+                `;
+                
+                data.experiences.forEach(exp => {
+                    html += `<div class="cv-experience">`;
+                    
+                    // Poste en bleu gras
+                    if (exp.entreprise) {
+                        html += `<div class="cv-job-position">${exp.entreprise} - ${exp.poste}</div>`;
+                    } else {
+                        html += `<div class="cv-job-position">${exp.poste}</div>`;
+                    }
+                    
+                    // Dates/lieu en vert
+                    let details = [];
+                    if (exp.dates) details.push(exp.dates);
+                    if (exp.lieu) details.push(exp.lieu);
+                    if (details.length > 0) {
+                        html += `<div class="cv-job-details">${details.join(' | ')}</div>`;
+                    }
+                    
+                    // Sous-catégorie en noir gras si elle existe
+                    if (exp.subcategory) {
+                        html += `<div class="cv-subcategory">${exp.subcategory}</div>`;
+                    }
+                    
+                    // Missions avec puces
+                    if (exp.missions && exp.missions.length > 0) {
+                        html += `<div class="cv-missions"><ul>`;
+                        exp.missions.forEach(mission => {
+                            html += `<li>${mission}</li>`;
+                        });
+                        html += `</ul></div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            }
+
+            // 2. COMPÉTENCES
+            if (data.competences && data.competences.length > 0) {
+                html += `
+                    <div class="cv-section">
+                        <div class="cv-section-title">Compétences</div>
+                        <div class="cv-competence-category">
+                            <div class="cv-competence-list">
+                `;
+                data.competences.forEach(comp => {
+                    html += `<span class="cv-competence-item">${comp}</span>`;
+                });
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. FORMATIONS
+            if (data.formations && data.formations.length > 0) {
+                html += `
+                    <div class="cv-section">
+                        <div class="cv-section-title">Formations</div>
+                `;
+                
+                data.formations.forEach(formation => {
+                    html += `<div class="cv-formation-item">`;
+                    html += `<div class="cv-formation-title">${formation.diplome}</div>`;
+                    
+                    let details = [];
+                    if (formation.dates) details.push(formation.dates);
+                    if (formation.etablissement) details.push(formation.etablissement);
+                    if (formation.lieu) details.push(formation.lieu);
+                    
+                    if (details.length > 0) {
+                        html += `<div class="cv-formation-details">${details.join(' | ')}</div>`;
+                    }
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            }
+
+            // 4. AUTRES SECTIONS
+            if (data.autres_sections) {
+                Object.entries(data.autres_sections).forEach(([sectionName, items]) => {
+                    if (items && items.length > 0) {
+                        const titleFormatted = sectionName.charAt(0).toUpperCase() + sectionName.slice(1).replace(/_/g, ' ');
+                        html += `
+                            <div class="cv-section">
+                                <div class="cv-section-title">${titleFormatted}</div>
+                                <div class="cv-simple-list">
+                                    <ul>
+                        `;
+                        items.forEach(item => {
+                            html += `<li>${item}</li>`;
+                        });
+                        html += `
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            return html;
         }
 
         function displayAnonymousCV() {
@@ -1273,7 +1541,7 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
                 'Prétention salariale': formData.salary || 'Non spécifiée',
                 'Remarque': formData.remark || 'Aucune',
                 'Notes pour Soufyane': formData.soufyaneRemark || 'Aucune',
-                'Taille CV original': currentCvData ? `${currentCvData.originalLength.toLocaleString()} caractères` : 'N/A',
+                'Mode traitement': processingMode === 'image' ? 'Analyse d\'image' : 'Extraction texte',
                 'Traité le': currentCvData ? new Date(currentCvData.processedAt).toLocaleString('fr-FR') : 'N/A'
             };
 
@@ -1291,7 +1559,7 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
             internalInfo.style.display = 'block';
         }
 
-        // Actions
+        // Actions qui MARCHENT
         function downloadPDF() {
             if (!currentCvData) {
                 showMessage('error', 'Aucun CV à télécharger');
@@ -1299,7 +1567,6 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
             }
 
             try {
-                // Créer une nouvelle fenêtre pour l'impression
                 const printWindow = window.open('', '_blank');
                 const cvContent = document.getElementById('cvPreview').innerHTML;
                 
@@ -1309,22 +1576,38 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
                     <head>
                         <title>CV_PROFIL_${currentCvData.profileCode}</title>
                         <style>
-                            body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-                            .cv-container { max-width: 800px; margin: 0 auto; }
-                            .cv-header { background: linear-gradient(135deg, #004199 0%, #0056cc 100%); padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; color: white; }
-                            .cv-logo-container { background: white; padding: 12px 16px; border-radius: 8px; }
-                            .cv-logo-container img { height: 45px; width: auto; }
-                            .cv-profile-info { text-align: center; flex: 1; margin-left: 40px; }
-                            .cv-job-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-                            .cv-profile-code { font-size: 13px; font-weight: 700; color: #00ff7f; background: rgba(0, 255, 127, 0.15); padding: 6px 16px; border-radius: 20px; display: inline-block; border: 1px solid rgba(0, 255, 127, 0.3); }
-                            .cv-content { padding: 30px 35px; background: white; }
-                            .cv-raw-content { font-size: 11px; line-height: 1.6; color: #333; }
-                            .cv-raw-content h1 { color: #004199; font-size: 14px; text-transform: uppercase; background: linear-gradient(135deg, #004199 0%, #0056cc 100%); color: white; padding: 8px 20px; border-radius: 20px; text-align: center; margin: 25px 0 15px 0; }
-                            .cv-raw-content h2 { font-size: 13px; color: #004199; border-left: 4px solid #004199; padding-left: 15px; margin: 20px 0 10px 0; }
-                            .cv-raw-content h3 { font-size: 12px; color: #00bf63; margin: 15px 0 8px 0; }
-                            .cv-raw-content ul, .cv-raw-content ol { margin: 10px 0 10px 20px; }
-                            .cv-raw-content li { margin-bottom: 5px; line-height: 1.5; }
-                            .cv-raw-content p { margin: 8px 0; text-align: justify; }
+                            @page { margin: 0; size: A4; }
+                            body { 
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                                margin: 0; 
+                                padding: 0; 
+                                font-size: 11pt;
+                                line-height: 1.4;
+                            }
+                            .cv-container { width: 210mm; min-height: 297mm; margin: 0; }
+                            .cv-header { background: linear-gradient(135deg, #004199 0%, #0056cc 100%); padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; color: white; }
+                            .cv-logo-container { background: white; padding: 10px 12px; border-radius: 6px; }
+                            .cv-logo-container img { height: 35px; width: auto; }
+                            .cv-profile-info { text-align: center; flex: 1; margin-left: 30px; }
+                            .cv-job-title { font-size: 16pt; font-weight: 700; margin-bottom: 6px; }
+                            .cv-profile-code { font-size: 12pt; font-weight: 700; color: #00ff7f; background: rgba(0, 255, 127, 0.15); padding: 4px 12px; border-radius: 15px; display: inline-block; border: 1px solid rgba(0, 255, 127, 0.3); }
+                            .cv-content { padding: 25px 30px; }
+                            .cv-section { margin-bottom: 25px; page-break-inside: avoid; }
+                            .cv-section-title { background: #004199; color: white; padding: 8px 20px; font-size: 12pt; font-weight: 700; text-align: center; text-transform: uppercase; border-radius: 20px; margin-bottom: 15px; }
+                            .cv-experience { margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #004199; }
+                            .cv-job-position { color: #004199; font-weight: 700; font-size: 11pt; margin-bottom: 6px; }
+                            .cv-job-details { color: #00bf63; font-size: 10pt; font-weight: 600; margin-bottom: 12px; background: rgba(0, 191, 99, 0.1); padding: 3px 8px; border-radius: 10px; display: inline-block; }
+                            .cv-subcategory { color: #000; font-weight: 700; font-size: 11pt; margin: 10px 0 8px 0; }
+                            .cv-missions ul { margin: 0; padding-left: 18px; }
+                            .cv-missions li { margin-bottom: 6px; font-size: 11pt; line-height: 1.4; color: #000; }
+                            .cv-competence-category { margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-top: 3px solid #004199; }
+                            .cv-competence-list { display: flex; flex-wrap: wrap; gap: 6px; }
+                            .cv-competence-item { background: white; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 10pt; border: 1px solid #e0e0e0; }
+                            .cv-formation-item { margin-bottom: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #00bf63; }
+                            .cv-formation-title { font-weight: 700; color: #004199; font-size: 11pt; margin-bottom: 4px; }
+                            .cv-formation-details { color: #00bf63; font-size: 10pt; font-weight: 600; }
+                            .cv-simple-list ul { margin: 0; padding-left: 18px; }
+                            .cv-simple-list li { margin-bottom: 6px; font-size: 11pt; color: #000; }
                         </style>
                     </head>
                     <body>
@@ -1338,9 +1621,10 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
                 setTimeout(() => {
                     printWindow.focus();
                     printWindow.print();
-                }, 500);
+                    printWindow.close();
+                }, 1000);
                 
-                showMessage('success', 'Ouverture de la fenêtre d\'impression PDF');
+                showMessage('success', 'Téléchargement PDF en cours...');
                 
             } catch (error) {
                 showMessage('error', 'Erreur téléchargement : ' + error.message);
@@ -1352,7 +1636,6 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
         }
 
         function enableModification() {
-            // Permettre la modification après génération
             cvTextInput.scrollIntoView({ behavior: 'smooth' });
             cvTextInput.focus();
             showMessage('info', 'Vous pouvez maintenant modifier et régénérer le CV');
@@ -1366,14 +1649,9 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
             generateBtn.disabled = true;
         }
 
-        function updateLoadingProgress(progress) {
-            document.getElementById('loadingProgress').textContent = progress;
-        }
-
         function hideLoading() {
             loadingOverlay.style.display = 'none';
             generateBtn.disabled = false;
-            document.getElementById('loadingProgress').textContent = '';
         }
 
         function showMessage(type, message) {
@@ -1386,7 +1664,7 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
             if (element) {
                 element.textContent = message;
                 element.classList.add('show');
-                setTimeout(hideMessages, type === 'error' ? 10000 : 6000);
+                setTimeout(hideMessages, type === 'error' ? 8000 : 5000);
             }
         }
 
@@ -1397,26 +1675,54 @@ Réponds avec le CV anonymisé en HTML simple, en gardant EXACTEMENT tout le con
         }
 
         function showApiKeyPrompt() {
-            const apiKey = prompt(`Configuration de la clé API OpenRouter
+            const apiKey = prompt(`Configuration clé API OpenRouter
 
 1. Créez un compte gratuit sur openrouter.ai
-2. Obtenez votre clé API dans votre dashboard
+2. Obtenez votre clé API dans le dashboard  
 3. Collez votre clé ici (format: sk-or-xxxxx)
 
-Coût approximatif: 2-5€ pour 100 CV longs`);
+Coût: ~2-5€ pour 100 CV analysés`);
             
             if (apiKey && apiKey.startsWith('sk-or-')) {
                 AI_CONFIG.apiKey = apiKey;
                 localStorage.setItem('openrouter_api_key', apiKey);
-                showMessage('success', 'Clé API configurée avec succès ! L\'outil est prêt à l\'utilisation.');
+                showMessage('success', 'Clé API configurée avec succès ! L\'outil est prêt.');
             } else if (apiKey) {
                 showMessage('error', 'Format invalide. La clé doit commencer par sk-or-');
             }
         }
 
+        function loadSavedData() {
+            const saved = localStorage.getItem('cv_anonymizer_data');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    cvTextInput.value = data.cvText || '';
+                    document.getElementById('jobTitle').value = data.jobTitle || '';
+                    document.getElementById('profileCode').value = data.profileCode || '';
+                    document.getElementById('availability').value = data.availability || '';
+                    document.getElementById('mobility').value = data.mobility || '';
+                    document.getElementById('salary').value = data.salary || '';
+                    document.getElementById('remark').value = data.remark || '';
+                    document.getElementById('soufyaneRemark').value = data.soufyaneRemark || '';
+                    updateCharCounter();
+                    
+                    // Charger le CV généré s'il existe
+                    const savedCV = localStorage.getItem('cv_anonymizer_generated');
+                    if (savedCV) {
+                        currentCvData = JSON.parse(savedCV);
+                        displayAnonymousCV();
+                        displayInternalInfo();
+                    }
+                } catch (e) {
+                    console.log('Erreur chargement données');
+                }
+            }
+        }
+
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
-            // Charger la clé API
+            // Charger la clé API sauvegardée
             const savedApiKey = localStorage.getItem('openrouter_api_key');
             if (savedApiKey) {
                 AI_CONFIG.apiKey = savedApiKey;
@@ -1425,10 +1731,10 @@ Coût approximatif: 2-5€ pour 100 CV longs`);
             // Charger les données sauvegardées
             loadSavedData();
             
-            // Initialiser le counter
+            // Initialiser le compteur
             updateCharCounter();
             
-            console.log('CV Anonymizer initialisé - Prêt pour CV jusqu\'à 30 pages');
+            console.log('CV Anonymizer TAFINAR initialisé - Version complète fonctionnelle');
         });
 
         // Styles d'impression intégrés
@@ -1446,11 +1752,18 @@ Coût approximatif: 2-5€ pour 100 CV longs`);
                     border: none !important;
                     border-radius: 0 !important;
                     box-shadow: none !important;
+                    max-width: none;
                 }
-                .cv-header { border-radius: 0 !important; page-break-inside: avoid; }
-                .cv-content { page-break-inside: auto; }
-                .cv-raw-content h1 { page-break-after: avoid; }
-                .cv-raw-content { page-break-inside: auto; }
+                .cv-container {
+                    width: 210mm;
+                    min-height: 297mm;
+                    margin: 0;
+                    box-shadow: none;
+                }
+                .cv-header { border-radius: 0; page-break-inside: avoid; }
+                .cv-section { page-break-inside: avoid; }
+                .cv-section-title { page-break-after: avoid; }
+                .cv-experience { page-break-inside: avoid; }
             }
         `;
         document.head.appendChild(printStyles);
