@@ -825,6 +825,7 @@ Etc..."></textarea>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         // Configuration IA optimisée pour gros CV
         const AI_CONFIG = {
@@ -1355,17 +1356,21 @@ IMPORTANT : Si le CV est très long, assure-toi de tout traiter sans rien omettr
         }
 
         function downloadPDF() {
-            // Création d'un PDF simple avec window.print optimisé
-            const printContent = document.getElementById('cvPreview').innerHTML;
-            const originalContent = document.body.innerHTML;
-            
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            
-            // Rétablir les event listeners après print
-            location.reload();
-        }
+    const element = document.getElementById('cvPreview');
+    const profileCode = document.getElementById('previewProfileCode').textContent.replace('PROFIL ', '');
+    
+    // Configuration pour html2pdf
+    const opt = {
+        margin: 10,
+        filename: `CV_ANONYME_${profileCode}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    // Téléchargement
+    html2pdf().set(opt).from(element).save();
+}
 
         function printCV() {
             window.print();
@@ -1428,4 +1433,5 @@ IMPORTANT : Si le CV est très long, assure-toi de tout traiter sans rien omettr
         document.head.appendChild(printStyles);
     </script>
 </body>
+
 </html>
